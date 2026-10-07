@@ -3,6 +3,8 @@
 from dataclasses import dataclass
 import os
 
+from dotenv import load_dotenv
+
 
 @dataclass(frozen=True)
 class DataConfig:
@@ -13,12 +15,13 @@ class DataConfig:
     local_results_path: str
 
 
-
 def load_data_config() -> DataConfig:
     """Load data configuration from environment variables."""
+    load_dotenv()
 
     return DataConfig(
         supabase_url=os.getenv("SUPABASE_URL"),
         supabase_anon_key=os.getenv("SUPABASE_ANON_KEY"),
         local_results_path=os.getenv("LOCAL_RESULTS_PATH", "data/samples"),
     )
+

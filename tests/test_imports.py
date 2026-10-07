@@ -11,6 +11,7 @@ def test_project_modules_can_be_imported() -> None:
         "app",
         "app.data.config",
         "app.data.local_loader",
+        "app.data.sample_loader",
         "app.data.supabase_client",
         "app.analysis.training_metrics",
         "app.analysis.execution_metrics",
