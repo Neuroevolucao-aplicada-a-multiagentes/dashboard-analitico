@@ -93,7 +93,7 @@ def build_comparative_fitness_logistics_chart(
 
     if not fig.data:
         fig.add_annotation(
-            text="Nenhuma run disponível para comparação.",
+            text="Nenhuma execução disponível para comparação.",
             xref="paper",
             yref="paper",
             x=0.5,
@@ -106,7 +106,7 @@ def build_comparative_fitness_logistics_chart(
     fig.update_yaxes(title_text="Taxa", tickformat=".0%", row=2, col=1, gridcolor="#F0F0F0")
     fig.update_xaxes(title_text="Geração", row=2, col=1, gridcolor="#F0F0F0")
     fig.update_layout(
-        title=dict(text="<b>Comparação entre Runs: Fitness e Logística</b>", x=0.02),
+        title=dict(text="<b>Comparação entre Execuções: Fitness e Logística</b>", x=0.02),
         template="plotly_white",
         hovermode="x unified",
         legend=dict(orientation="h", yanchor="bottom", y=1.02),

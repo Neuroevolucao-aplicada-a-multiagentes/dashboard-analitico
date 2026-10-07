@@ -91,7 +91,7 @@ if source_option == "Local (CSV)":
     else:
         st.sidebar.info("Nenhum arquivo CSV encontrado em `data/`.")
         # Provide sample demo loader button for testing/development
-        if st.sidebar.button("Carregar Dados de Demonstração (Demo)"):
+        if st.sidebar.button("Carregar Dados de Demonstração"):
             demo_data = {
                 "geracao": list(range(1, 26)),
                 "coletas": [int(10 + i * 2.5) for i in range(1, 26)],
@@ -140,23 +140,23 @@ else:
                 runs = manager.list_runs(experiment_id=chosen_exp_id)
                 if not runs.empty and "id" in runs.columns:
                     run_map = {
-                        f"Run {str(row['id'])[:8]} (Status: {row.get('status', 'N/A')})": str(row["id"])
+                        f"Execução {str(row['id'])[:8]} (Status: {row.get('status', 'N/A')})": str(row["id"])
                         for _, row in runs.iterrows()
                     }
-                    chosen_run_label = st.sidebar.selectbox("Execução (Run):", options=list(run_map.keys()))
+                    chosen_run_label = st.sidebar.selectbox("Execução:", options=list(run_map.keys()))
                     chosen_run_id = run_map[chosen_run_label]
 
-                    if st.sidebar.button("Carregar Métricas da Run", type="primary"):
+                    if st.sidebar.button("Carregar Métricas da Execução", type="primary"):
                         logistics_df = manager.get_run_metrics(chosen_run_id, source="supabase")
-                        data_source_label = f"Supabase Run: {chosen_run_id}"
+                        data_source_label = f"Execução Supabase: {chosen_run_id}"
                 else:
-                    st.sidebar.info("Nenhuma run encontrada para este experimento.")
+                    st.sidebar.info("Nenhuma execução encontrada para este experimento.")
             else:
                 st.sidebar.info("Nenhum experimento encontrado.")
-                manual_run_id = st.sidebar.text_input("Ou digite o UUID da Run:")
+                manual_run_id = st.sidebar.text_input("Ou digite o UUID da execução:")
                 if manual_run_id and st.sidebar.button("Carregar por UUID"):
                     logistics_df = manager.get_run_metrics(manual_run_id.strip(), source="supabase")
-                    data_source_label = f"Supabase Run: {manual_run_id.strip()}"
+                    data_source_label = f"Execução Supabase: {manual_run_id.strip()}"
         except Exception as e:
             st.error(f"Erro ao consultar Supabase: {e}")
 
@@ -205,7 +205,7 @@ else:
             value=f"{metrics['latest_colisoes']}",
             delta=f"{metrics['delta_colisoes']:+d}" if metrics["has_delta"] else None,
             delta_color="inverse",
-            help=f"Colisões registradas na última geração. Total acumulado na run: {metrics['total_colisoes']}.",
+            help=f"Colisões registradas na última geração. Total acumulado na execução: {metrics['total_colisoes']}.",
         )
 
     with col4:

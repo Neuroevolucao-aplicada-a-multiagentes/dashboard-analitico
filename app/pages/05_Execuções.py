@@ -2,5 +2,5 @@
 
 import streamlit as st
 
-st.title("Executions")
+st.title("Execuções")
 st.write("Página em construção.")

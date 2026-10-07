@@ -11,6 +11,6 @@ st.write(
 )
 
 st.info(
-    "Implementação inicial: estrutura, contratos de dados e módulos base "
+    "Implementação inicial: a estrutura, os contratos de dados e os módulos base "
     "foram preparados para evolução incremental."
 )

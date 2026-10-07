@@ -44,7 +44,7 @@ def _load_local_file(
 
 def _load_slot(manager: DataManager, slot: int, experiments: pd.DataFrame) -> tuple[str, pd.DataFrame] | None:
     """Render and load one run-selection slot."""
-    st.sidebar.subheader(f"Run {slot}")
+    st.sidebar.subheader(f"Execução {slot}")
     source = st.sidebar.radio(
         "Fonte",
         options=("Local (CSV)", "Supabase"),
@@ -100,10 +100,10 @@ def _load_slot(manager: DataManager, slot: int, experiments: pd.DataFrame) -> tu
     )
     runs = manager.list_runs(experiment_id=experiment_map[experiment_label])
     if runs.empty or "id" not in runs.columns:
-        st.sidebar.info("Nenhuma run encontrada para este experimento.")
+        st.sidebar.info("Nenhuma execução encontrada para este experimento.")
         return None
     run_map = {
-        f"Run {str(row['id'])[:8]} ({row.get('status', 'N/A')})": str(row["id"])
+        f"Execução {str(row['id'])[:8]} ({row.get('status', 'N/A')})": str(row["id"])
         for _, row in runs.iterrows()
     }
     run_label = st.sidebar.selectbox(
@@ -111,12 +111,12 @@ def _load_slot(manager: DataManager, slot: int, experiments: pd.DataFrame) -> tu
         options=list(run_map),
         key=f"scenario_run_{slot}",
     )
-    if not st.sidebar.button("Carregar run", key=f"scenario_load_{slot}"):
+    if not st.sidebar.button("Carregar execução", key=f"scenario_load_{slot}"):
         return None
     try:
         data = manager.get_run_metrics(run_map[run_label], source="supabase")
     except (RuntimeError, ValueError) as error:
-        st.sidebar.error(f"Erro ao carregar a run: {error}")
+        st.sidebar.error(f"Erro ao carregar a execução: {error}")
         return None
     return run_label, data
 
@@ -124,7 +124,7 @@ def _load_slot(manager: DataManager, slot: int, experiments: pd.DataFrame) -> tu
 st.set_page_config(page_title="Cenários | Dashboard Analítico", layout="wide")
 st.title("🔬 Análise Comparativa de Cenários")
 st.markdown(
-    "Compare a evolução do fitness médio e da taxa de entrega de duas ou mais runs "
+    "Compare a evolução do fitness médio e da taxa de entrega de duas ou mais execuções "
     "usando o mesmo eixo de gerações."
 )
 st.sidebar.header("⚙️ Fontes para comparação")
@@ -140,11 +140,11 @@ for slot in (1, 2):
     selected_run = _load_slot(manager, slot, experiments_df)
     if selected_run is not None:
         label, data = selected_run
-        comparative_runs[f"Run {slot}: {label}"] = data
+        comparative_runs[f"Execução {slot}: {label}"] = data
 
 if len(comparative_runs) < 2:
-    st.info("Selecione e carregue pelo menos duas runs para visualizar a comparação.")
+    st.info("Selecione e carregue pelo menos duas execuções para visualizar a comparação.")
 else:
-    st.caption(f"{len(comparative_runs)} runs carregadas para comparação.")
+    st.caption(f"{len(comparative_runs)} execuções carregadas para comparação.")
     figure = build_comparative_fitness_logistics_chart(comparative_runs)
     st.plotly_chart(figure, use_container_width=True)

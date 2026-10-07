@@ -6,7 +6,7 @@ import pandas as pd
 from app.data.config import load_data_config
 from app.data.data_manager import get_data_manager
 
-st.set_page_config(page_title="Overview | Dashboard Analítico", layout="wide")
+st.set_page_config(page_title="Visão Geral | Dashboard Analítico", layout="wide")
 
 st.title("🏛️ Visão Geral & Arquitetura")
 st.markdown(
@@ -32,7 +32,7 @@ if not has_credentials:
     with col_exp:
         st.metric(label="Experimentos no Banco", value="N/A")
     with col_runs:
-        st.metric(label="Runs no Banco", value="N/A")
+        st.metric(label="Execuções no Banco", value="N/A")
     with col_mode:
         st.metric(label="Fonte Padrão", value="Local (CSV)")
 
@@ -53,7 +53,7 @@ else:
         with col_exp:
             st.metric(label="Experimentos", value=exp_count)
         with col_runs:
-            st.metric(label="Runs Registradas", value=run_count)
+            st.metric(label="Execuções Registradas", value=run_count)
         with col_mode:
             st.metric(label="Origem Habilitada", value="Híbrida (Supabase + Local)")
 
@@ -66,7 +66,7 @@ else:
         with col_exp:
             st.metric(label="Experimentos", value="--")
         with col_runs:
-            st.metric(label="Runs", value="--")
+            st.metric(label="Execuções", value="--")
         with col_mode:
             st.metric(label="Fallback", value="Local (CSV)")
 
@@ -121,7 +121,7 @@ nav_c1, nav_c2, nav_c3 = st.columns(3)
 
 with nav_c1:
     st.markdown("""
-#### 📈 02. Training
+#### 📈 02. Treinamento
 - Visualização da evolução do fitness (Melhor, Médio e Pior).
 - Área de desvio padrão (±1 std) demonstrando a estabilidade da convergência.
 - Métricas instantâneas da última geração executada.
@@ -129,7 +129,7 @@ with nav_c1:
 
 with nav_c2:
     st.markdown("""
-#### 🧬 03. Population
+#### 🧬 03. População
 - Dinâmica dos hiperparâmetros genéticos (taxa e força de mutação).
 - Inspecionamento dos checkpoints geracionais salvos.
 - Monitoramento de diversidade da população.
@@ -137,7 +137,7 @@ with nav_c2:
 
 with nav_c3:
     st.markdown("""
-#### 📦 04. Logistics & Mais
+#### 📦 04. Logística e Mais
 - Métricas operacionais do armazém (entregas, coletas e colisões).
 - Taxas de eficiência temporal e física na simulação 3D.
 - *(Previsto para a Fase D do roadmap).*

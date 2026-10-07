@@ -66,15 +66,15 @@ else:
                 runs = manager.list_runs(experiment_id=exp_map[chosen_exp])
                 if not runs.empty and "id" in runs.columns:
                     run_map = {
-                        f"Run {str(row['id'])[:8]}": str(row["id"])
+                        f"Execução {str(row['id'])[:8]}": str(row["id"])
                         for _, row in runs.iterrows()
                     }
-                    chosen_run = st.sidebar.selectbox("Run:", list(run_map.keys()))
+                    chosen_run = st.sidebar.selectbox("Execução:", list(run_map.keys()))
                     chosen_run_id = run_map[chosen_run]
 
                     training_df = manager.get_run_metrics(chosen_run_id, source="supabase")
 
-                    st.subheader("💾 Checkpoints Registrados na Run")
+                    st.subheader("💾 Checkpoints Registrados na Execução")
                     checkpoints_df = manager.list_checkpoints(run_id=chosen_run_id)
                     if not checkpoints_df.empty:
                         st.dataframe(checkpoints_df, use_container_width=True)
