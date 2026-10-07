@@ -24,3 +24,6 @@ def get_supabase_client() -> Any | None:
 
     client: Client = create_client(config.supabase_url, config.supabase_anon_key)
     return client
+
+
+__all__ = ["get_supabase_client"]
